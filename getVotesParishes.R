@@ -47,7 +47,7 @@ for(i in 1:nrow(freguesias)) {
       blankVotesPercentage <- dta$blankVotesPercentage; if(is.null(blankVotesPercentage)) blankVotesPercentage <- NA
       nullVotes <- dta$nullVotes; if(is.null(nullVotes)) nullVotes <- NA
       nullVotesPercentage <- dta$nullVotesPercentage; if(is.null(nullVotesPercentage)) nullVotesPercentage <- NA
-      voters <- dta$numberVoters; if(is.null(voters)) voters <- NA
+      #voters <- dta$numberVoters; if(is.null(voters)) voters <- NA
       votersPercentage <- dta$percentageVoters; if(is.null(votersPercentage)) votersPercentage <- NA
       subscribedVoters <- dta$subscribedVoters; if(is.null(subscribedVoters)) subscribedVoters <- NA
       totalVoters <- dta$totalVoters; if(is.null(totalVoters)) totalVoters <- NA
@@ -60,7 +60,8 @@ for(i in 1:nrow(freguesias)) {
                             numParishes=numParishes, numParishesApproved=numParishesApproved,
                             blankVotes=blankVotes, blankVotesPercentage=blankVotesPercentage,
                             nullVotes=nullVotes, nullVotesPercentage=nullVotesPercentage,
-                            voters=voters, votersPercentage=votersPercentage, subscribedVoters=subscribedVoters, totalVoters=totalVoters)
+                            #voters=voters, 
+                            votersPercentage=votersPercentage, subscribedVoters=subscribedVoters) #, totalVoters=totalVoters)
       
       dto <- json_data$previousResults
       
@@ -69,7 +70,7 @@ for(i in 1:nrow(freguesias)) {
       blankVotesPercentage <- dto$blankVotesPercentage; if(is.null(blankVotesPercentage)) blankVotesPercentage <- NA
       nullVotes <- dto$nullVotes; if(is.null(nullVotes)) nullVotes <- NA
       nullVotesPercentage <- dto$nullVotesPercentage; if(is.null(nullVotesPercentage)) nullVotesPercentage <- NA
-      voters <- dto$numberVoters; if(is.null(voters)) voters <- NA
+      #voters <- dto$numberVoters; if(is.null(voters)) voters <- NA
       votersPercentage <- dto$percentageVoters; if(is.null(votersPercentage)) votersPercentage <- NA
       subscribedVoters <- dto$subscribedVoters; if(is.null(subscribedVoters)) subscribedVoters <- NA
       totalVoters <- dto$totalVoters; if(is.null(totalVoters)) totalVoters <- NA
@@ -78,7 +79,8 @@ for(i in 1:nrow(freguesias)) {
       new_tbl <- cbind(new_tbl,data.frame(pre.totalMandates=totalMandates, pre.availableMandates=availableMandates,
                                           pre.blankVotes=blankVotes, pre.blankVotesPercentage=blankVotesPercentage,
                                           pre.nullVotes=nullVotes, pre.nullVotesPercentage=nullVotesPercentage,
-                                          pre.voters=voters, pre.votersPercentage=votersPercentage, pre.subscribedVoters=subscribedVoters, pre.totalVoters=totalVoters))
+                                          #pre.voters=voters, 
+                                          pre.votersPercentage=votersPercentage, pre.subscribedVoters=subscribedVoters, pre.totalVoters=totalVoters))
       
       results <- rbind(results, new_tbl)
       
@@ -120,17 +122,18 @@ for(i in 1:nrow(freguesias)) {
 
 freguesias <- read.csv("freguesias-metadata.csv")
 
-results["Concelho"] <- freguesias$concelho
-results["Distrito"] <- freguesias$distrito
-results$Concelho <- as.character(results$Concelho); results$Distrito <- as.character(results$Distrito)
-results[results$Distrito=="Ilha da Madeira",]$Distrito <- "Madeira"
-results[results$Distrito=="Ilha de Porto Santo",]$Distrito <- "Madeira"
-results[grepl("Ilha d",results$Distrito),]$Distrito <- "Açores"
+results["Council"] <- freguesias$concelho
+results["District"] <- freguesias$District
+results$Council <- as.character(results$Council); results$District <- as.character(results$District)
+results[results$District=="Ilha da Madeira",]$District <- "Madeira"
+results[results$District=="Ilha de Porto Santo",]$District <- "Madeira"
+results[grepl("Ilha d",results$District),]$District <- "Açores"
 
-results_votes["Concelho"] <- results[match(results_votes$District,results$territoryName),]$Concelho
-results_votes["Distrito"] <- results[match(results_votes$District,results$territoryName),]$Distrito
+results_votes["Council"] <- results[match(results_votes$District,results$territoryName),]$Council
+results_votes["District"] <- results[match(results_votes$District,results$territoryName),]$District
+results_votes$ID <- NULL
 
-write.csv(results,file="parishes.csv",row.names = FALSE)
-write.csv(results_votes,file="votes_parishes.csv",row.names = FALSE)
+write.csv(results,file="SourceData/parishes.csv",row.names = FALSE)
+write.csv(results_votes,file="SourceData/votes_parishes.csv",row.names = FALSE)
 
 

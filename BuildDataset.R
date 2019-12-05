@@ -12,6 +12,8 @@ times <- unique(overall$time)
 
 final <- votes[votes$time == times[length(times)],c("District","Party","Mandates")]
 
+overall$totalVoters
+
 res <- c()
 
 for(t in 1:length(times)) {
@@ -62,3 +64,4 @@ for(t in 1:length(times)) {
   
 }
 
+write.csv(res,file="ElectionData.csv",row.names=FALSE)

@@ -85,7 +85,7 @@ for(i in 1:length(lookupUrl)) {
     blankVotesPercentage <- dta$blankVotesPercentage; if(is.null(blankVotesPercentage)) blankVotesPercentage <- NA
     nullVotes <- dta$nullVotes; if(is.null(nullVotes)) nullVotes <- NA
     nullVotesPercentage <- dta$nullVotesPercentage; if(is.null(nullVotesPercentage)) nullVotesPercentage <- NA
-    voters <- dta$numberVoters; if(is.null(voters)) voters <- NA
+    #voters <- dta$numberVoters; if(is.null(voters)) voters <- NA
     votersPercentage <- dta$percentageVoters; if(is.null(votersPercentage)) votersPercentage <- NA
     subscribedVoters <- dta$subscribedVoters; if(is.null(subscribedVoters)) subscribedVoters <- NA
     totalVoters <- dta$totalVoters; if(is.null(totalVoters)) totalVoters <- NA
@@ -98,7 +98,8 @@ for(i in 1:length(lookupUrl)) {
                           numParishes=numParishes, numParishesApproved=numParishesApproved,
                           blankVotes=blankVotes, blankVotesPercentage=blankVotesPercentage,
                           nullVotes=nullVotes, nullVotesPercentage=nullVotesPercentage,
-                          voters=voters, votersPercentage=votersPercentage, subscribedVoters=subscribedVoters, totalVoters=totalVoters)
+                          #voters=voters, 
+                          votersPercentage=votersPercentage, subscribedVoters=subscribedVoters, totalVoters=totalVoters)
     
     dto <- json_data$previousResults
     
@@ -107,7 +108,7 @@ for(i in 1:length(lookupUrl)) {
     blankVotesPercentage <- dto$blankVotesPercentage; if(is.null(blankVotesPercentage)) blankVotesPercentage <- NA
     nullVotes <- dto$nullVotes; if(is.null(nullVotes)) nullVotes <- NA
     nullVotesPercentage <- dto$nullVotesPercentage; if(is.null(nullVotesPercentage)) nullVotesPercentage <- NA
-    voters <- dto$numberVoters; if(is.null(voters)) voters <- NA
+    #voters <- dto$numberVoters; if(is.null(voters)) voters <- NA
     votersPercentage <- dto$percentageVoters; if(is.null(votersPercentage)) votersPercentage <- NA
     subscribedVoters <- dto$subscribedVoters; if(is.null(subscribedVoters)) subscribedVoters <- NA
     totalVoters <- dto$totalVoters; if(is.null(totalVoters)) totalVoters <- NA
@@ -116,7 +117,8 @@ for(i in 1:length(lookupUrl)) {
     new_tbl <- cbind(new_tbl,data.frame(pre.totalMandates=totalMandates, pre.availableMandates=availableMandates,
                                         pre.blankVotes=blankVotes, pre.blankVotesPercentage=blankVotesPercentage,
                                         pre.nullVotes=nullVotes, pre.nullVotesPercentage=nullVotesPercentage,
-                                        pre.voters=voters, pre.votersPercentage=votersPercentage, pre.subscribedVoters=subscribedVoters, pre.totalVoters=totalVoters))
+                                        #pre.voters=voters, 
+                                        pre.votersPercentage=votersPercentage, pre.subscribedVoters=subscribedVoters, pre.totalVoters=totalVoters))
     
     results <- rbind(results, new_tbl)
     

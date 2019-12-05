@@ -12,8 +12,6 @@ times <- unique(overall$time)
 
 final <- votes[votes$time == times[length(times)],c("District","Party","Mandates")]
 
-overall$totalVoters
-
 res <- c()
 
 for(t in 1:length(times)) {
@@ -25,7 +23,7 @@ for(t in 1:length(times)) {
   
   for(i in 1:length(distr.names)) {
     
-    info.distr <- distr[distr$territoryName==distr.names[i],c(1,3,5:16,19:22,24:26)]
+    info.distr <- distr[distr$territoryName==distr.names[i],c(1,3,5:15,18:24)]
     
     votes.distr <- votes[votes$time==unique(distr$time) & votes$District==distr.names[i],3:7]
     
